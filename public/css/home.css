@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+.photo-div { padding: 1em; -moz-border-radius: 10px; border-radius: 10px; -webkit-border-radius: 10px; background: #bfbfbf; margin-bottom: 1em;}
+.photo-info, .photo-pane { float: left; width: 400px;}
+.photo-info { text-align: right; padding-right: 2em; border-right: 1px solid #fff; height: 100%; margin-top: 3em; margin-left: 2em; }
+.photo-info h3 { border-radius: 6px; -webkit-border-radius: 6px; background: #eee; padding: 1em;}
+.photo-info .hcover { padding: 0.4em 0.6em 0.5em; border-bottom: 1px dotted #fff; background: #ccc; display: block;}
+.photo-info p { color: #444; text-shadow: 0 1px 0 #eee;}
+.photo-pane { text-align: center; float: right;}
+.photo-pane img { padding: 0.5em; background: #eee; border: 1px solid #fff; box-shadow: 0 0 6px #222; margin-top: 0.6em}
+.clr {  float:none; visibility: hidden; clear: both;}
+.photo-div:after { content: "."; visibility:hidden; clear: both; }
+.result-info { text-align: right; font-style: italic; color: #ddd; text-shadow: 0 1px 0 #222;}
+.result-info .page-link { padding: 0.4em 0.3em;
+	color: #444; text-shadow: 0 1px 0 #fff; background: #ccf; border-radius: 3px; -moz-border-radius:3px; -webkit-border-radius:3px;
+	display: inline-block; width: 1.6em; text-align: center;}
+.result-info .page-link-active { padding: 0.4em 0.3em;
+	color: #444; text-shadow: 0 1px 0 #fff; background: #ccc; border-radius: 3px; -moz-border-radius:3px; -webkit-border-radius:3px;
+	display: inline-block; width: 1.6em; text-align: center;}
+#show-case {width: 950px; margin: 0 auto; }

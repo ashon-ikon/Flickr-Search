@@ -1,0 +1,93 @@
+<?php
+/*---------------------------------------------------------------------
+ * @project:	My Flicker Gallery
+ * 
+ * @Project		My Flicker Gallery Application
+ * 
+ * --------------------------------------------------------------------
+ * Created by ashon on Aug 19, 2012
+ * 
+ * (c) 2010 - 2012 Copyright Ashon Associates Inc. Web Solutions 
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * --------------------------------------------------------------------
+ */
+ 
+$response		= $this->response;
+$layout			= Controller_Layout::getInstance();
+$layout->addCSS('css/detail.css');
+?>
+<?php if ($response && is_array($response) && getArrayVar($response, 'stat') == 'ok'): 
+	$this_image	 	= getArrayVar($response, 'photo');
+	// Title
+	$image_title 	= getArrayVar($this_image, 'title');
+	if (is_array($image_title)) $image_title	= strip_tags(getArrayVar($image_title, '_content'));
+	// Desciption
+	$image_desc 	= getArrayVar($this_image, 'description');
+	if (is_array($image_desc)) $image_desc	= getArrayVar($image_desc, '_content');
+	
+	$image_sizes	= getArrayVar($response, 'sizes');
+	$image_sizes	= getArrayVar($image_sizes, 'size') != null ? getArrayVar($image_sizes, 'size') : $image_sizes;
+	$image_size		= array();
+	if (is_array($image_sizes))
+	{
+		foreach ($image_sizes as $size)
+		{
+			if ( getArrayVar($size, 'label') == 'Medium 640')
+				$image_size	= $size;
+		}
+		
+		// If empty use the largest ;)
+		if ( empty($image_size) )
+			$image_size		= $image_sizes[count($image_sizes) - 1];
+		
+	}
+	
+	$owner		= getArrayVar($this_image, 'owner');
+	
+//	pr($this_image);
+//	pr($response);
+	
+	// Set title
+	$layout->setPageTitle($image_title);
+?>
+<div id="photo-detail">
+	<div class="links"><?php echo $this->fullUrl('Go back to all images', null, array('title' => 'Go back home')); ?></div>
+	<div id="photo-title"><h3>Viewing: <em><?php echo $image_title; ?></em></h3></div>
+	<div>
+		<div id="photo-pane">
+			<img src="<?php echo $image_size['source']; ?>"
+				 title="<?php echo $image_desc != '' ? strip_tags($image_desc): 'Unknown description';?>"
+				 height="<?php echo $image_size['height'];?>"
+				 width="<?php echo $image_size['width'];?>"
+				 alt="<?php echo $image_desc != '' ? strip_tags($image_desc): 'Unknown description';?>" />
+		</div>
+		<div id="info">
+			<div id="photo-info">
+				<!-- Owner -->By
+				<span class="owner"><?php echo ($username = getArrayVar($owner, 'username')) != '' ? $username : 'Unknown owner';?></span>
+				<!-- Date taken -->
+			</div>
+			<div id="photo-description">
+				<p><?php echo $image_desc != '' ? $image_desc : 'Unknown description';?></p>
+			</div>
+		</div>
+	</div>
+</div>
+<?php else: ?>
+<div>
+
+</div>
+<?php endif; ?>

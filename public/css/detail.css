@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+#header h1 { visibility: hidden;}
+#photo-detail { width: 800px; margin: auto;}
+#photo-pane { text-align: center; margin: auto;}
+#photo-pane img { padding: 0.5em; background: #eee; border: 1px solid #fff; box-shadow: 0 0 6px #222;}
+#info { margin-top: 2em; text-align: justify; padding:1em 3em;}
+#info .owner { font-weight: bold; font-style:italic;}
+#photo-description { font-size: 95%; line-height: 1.5em;}
+.links { text-align: right; margin-top:0.7em;}
+.links a:link { padding: 0.4em 1em; color: #444; text-shadow: 0 1px 0 #fff; background: #ccf; border-radius: 3px; -moz-border-radius:3px; -webkit-border-radius:3px; }

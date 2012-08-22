@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+#photo-search { width: 700px; margin: 0 auto;}
+#photo-search form { font-size: 2em;}
+#photo-search form input { padding: 1em; font-size: 1em; font-style: italic;}
+#photo-search form input[type="text"] { border-radius: 7px; -moz-border-radius:7px; -webkit-border-radius:7px;}

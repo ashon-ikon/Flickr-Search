@@ -1,0 +1,240 @@
+<?php
+/*---------------------------------------------------------------------
+ * @project:	My Flicker Gallery
+ * 
+ * @Project		My Flicker Gallery Application
+ * 
+ * --------------------------------------------------------------------
+ * Created by ashon on Aug 17, 2012
+ * 
+ * (c) 2010 - 2012 Copyright Ashon Associates Inc. Web Solutions 
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * --------------------------------------------------------------------
+ */
+
+$response	= $this->response;
+//pr($response);
+$flickr_obj = Flickr_API::getInstance();
+$layout			= Controller_Layout::getInstance();
+$layout->addCSS('css/home.css');
+?>
+<a name="top" ></a>
+<div>
+	<div id="show-case">
+<?php	if( $stat = getArrayVar($response, 'stat') == 'ok' ): ?>
+	<?php if ($photos	= getArrayVar($response, 'photos') )
+			if( $images = getArrayVar($photos, 'photo') ): ?>
+	<div id="photos">
+	<div class="result-info">
+	<p>
+	<?php 
+		$total 			= $photos['total'];
+		$per_page 		= $photos['perpage'];
+		$page 			= $photos['page'];
+		
+				
+		$no_of_pages	= $total / $per_page;
+		if ( strpos($no_of_pages, '.') !== false ) 
+		{
+			$no_of_pages	= intval($no_of_pages);
+			$no_of_pages++; // Move one more page	
+		}
+
+		$pages_list		= 10;
+		
+		if ($no_of_pages > $pages_list)
+			$pages_to_show = $pages_list;
+		else
+			$pages_to_show = $no_of_pages;
+			
+		$offset	=	((int)( ( $page -1 )/ $pages_list ) * $pages_list); 
+		
+	
+		
+		// Show Prev
+		if ($page > 1 )
+			echo $this->fullUrl('&lt;&lt;', 
+								array(
+									'perpage' 	=> $per_page,
+									'p' 		=> $page - 1,
+									), array('title' => 'View previous page of result', 'class' => 'page-link')) . ' | ';
+		echo ' ';
+		for ($i = 1 + $offset; $i <= ($pages_to_show + $offset); $i++)
+		{
+			if ($i != $page)
+			{
+				echo $this->fullUrl($i, 
+								array(
+									'perpage' 	=> $per_page,
+									'p' 		=> $i,
+									)
+							, array('title' => 'View page '. $i .' of result', 'class' => 'page-link'));
+			}
+			else
+			{
+				echo '<span class="page-link-active">', $i, '</span>';
+			}				
+			echo ' | ';
+		}
+		
+		// Show Next
+		if ($page < $total )
+			echo $this->fullUrl('&gt;&gt;', 
+								array(
+									'perpage' 	=> $per_page,
+									'p' 		=> $pages_to_show + $offset + 1,
+									), array('title' => 'View next page of result', 'class' => 'page-link'));
+		
+		if ($no_of_pages > $pages_to_show)
+			echo '...';
+	?>
+		&nbsp;&nbsp;&nbsp;
+		<span class="count"><?php echo $photos['perpage'];?></span> of <span class="total"><?php echo $photos['total'];?></span> results.
+		</p>
+	</div>
+	
+	<?php
+		if( !empty($images))
+		{
+			foreach ($images as $this_photo)
+			{
+				/*
+				 * ------------------------
+				 *  Get image info 
+				 */
+				
+				$title			= getArrayVar( $this_photo, 'title');
+				$image_id		= getArrayVar($this_photo, 'id');
+
+				// Thumbnail
+				$tbn_src		= $tbn_w = $tbn_h = $thumbnail	= null;
+				if ($url_t 		= getArrayVar($this_photo, 'url_n'))
+				{
+					$tbn_src	= $url_t;
+					$tbn_w		= getArrayVar( $this_photo, 'width_n');
+					$tbn_h		= getArrayVar( $this_photo, 'height_n');
+				}
+				else
+				{
+					// It wasn't passed, so we'll attempt to build it
+					$image_params	= array(
+					
+					);
+					$image_info		= $flickr_obj->getImageById($image_id, $image_params);
+				}
+				// Build Thumbnail ...
+				$tbn_params			= array(
+					'src'			=> $tbn_src,
+					'width'			=> $tbn_w,
+					'height'		=> $tbn_h,
+				);
+				$thumbnail	= wrapHtml('','img', $tbn_params, true);
+				
+				// Target Image
+				$t_img_src		= $this->fullUrlLink(array(
+												'controller' 	=> 'photos',
+												'action' 	 	=> 'detail',
+												'id' 	 	 	=> $image_id,
+																)) ;
+																//$flickr_obj->getImageUrlFromParams($this_photo);
+				$img_link_params	= array(
+					'href'			=> $t_img_src,
+					'title'			=> $title,
+					'alt'			=> $title,
+				);
+
+				$img_link			= wrapHtml($thumbnail, 'a', $img_link_params);
+				
+				// Use divs
+				?>
+				<div class="photo-div">
+					<div class="photo-pane">
+						<a href="<?php echo $t_img_src;?>" title="Check out <?php echo $title; ?>">
+							<img src="<?php echo $tbn_src;?>" title="<?php echo $title; ?>" 
+								 width="<?php echo $tbn_w;?>" height="<?php echo $tbn_h;?>", alt="<?php echo $title; ?>"/>
+						</a>
+						<a href="<?php echo $t_img_src;?>" title="Check out <?php echo $title; ?>">
+							<h3><?php echo $title; ?></h3>
+						</a>
+						<?php /*pr($this_photo);*/?>
+					</div><!-- End of Photo-pane -->
+					<div class="photo-info">
+						<h3><span class="hcover">Credits | : Flickr :</span></h3>
+						<p>
+						<span class="author"><?php echo $this_photo['ownername']; ?></span>
+						</p>
+					</div><!-- End of Photo-into -->
+					<div class="clr"></div>
+					<a href="#top" class="top">Top</a>
+				</div>
+				<?
+//				echo '<p>', $img_link, $t_img_src, '</p>';		
+			}	
+		}
+	?>
+	</div> 
+	
+	<div class="result-info">
+	<p>
+	<?php 
+		// Show Prev
+		if ($page > 1 )
+			echo $this->fullUrl('&lt;&lt;', 
+								array(
+									'perpage' 	=> $per_page,
+									'p' 		=> $page - 1,
+									), array('title' => 'View previous page of result', 'class' => 'page-link')) . ' | ';
+		echo ' ';
+		for ($i = 1 + $offset; $i <= ($pages_to_show + $offset); $i++)
+		{
+			if ($i != $page)
+			{
+				echo $this->fullUrl($i, 
+								array(
+									'perpage' 	=> $per_page,
+									'p' 		=> $i,
+									)
+							, array('title' => 'View page '. $i .' of result', 'class' => 'page-link'));
+			}
+			else
+			{
+				echo '<span class="page-link-active">', $i, '</span>';
+			}				
+			echo ' | ';
+		}
+		
+		// Show Next
+		if ($page < $total )
+			echo $this->fullUrl('&gt;&gt;', 
+								array(
+									'perpage' 	=> $per_page,
+									'p' 		=> $pages_to_show + $offset + 1,
+									), array('title' => 'View next page of result', 'class' => 'page-link'));
+		
+		if ($no_of_pages > $pages_to_show)
+			echo ' ...';
+	?>
+	</p>
+	</div>
+	<?php endif; /* Has Photos*/ ?>
+<?php else: /* Stat Ok?*/ ?>
+	
+	<div id="error">
+		<h2>Ops! Some error occurred!</h2>
+	</div>
+<?php endif; /* Stat Ok?*/ ?>
+	</div>
+</div>

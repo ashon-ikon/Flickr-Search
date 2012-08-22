@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+body { background: #999; color:	#fff; text-shadow: 0 1px 0 #222;
+	padding: 0; margin: 0; font-family: 'Times New Roman';}
+#header { 	padding: 1em; border-bottom: 1px solid #222; box-shadow: 0 3px 6px 4px #777;
+	background: #aaa url('../img/bg_x.png') repeat-x;}
+#header h1 { }
+.page-info { text-align: right; }
+a:link, a:visited { color: #fff; text-decoration: none;}
+a:hover { color: #11f; text-decoration: underline; text-shadow: none;}
+.nav-link { font-size: 1.6em;}
+#header ul li { float: left; display: inline-block; margin-left: 2em;}
+#header ul:after { content: '.'; visibility:hidden; clear: both;}
+#content {  padding: 10px; width: 960px; margin 0 auto; height:auto; min-height: 400px; margin: 0 auto;}
+table { width: 100%;}
+#search-form input[type="text"] { padding: 0.4em; border-radius: 7px; -moz-border-radius:7px; -webkit-border-radius:7px;}
+#search-form input[type="submit"] { padding: 0.3em 0.7em;}
+#footer { height: auto; background: #333; padding: 1em;}
+#footer p { text-align: right; font-size: 80%;}
