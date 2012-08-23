@@ -54,7 +54,7 @@ class Controller_Layout extends Controller_View_Base
 	/**
 	 * @var array Javascript scripts
 	 */
-	protected	$_js_scripts	= array();
+	protected	$_scripts	= array();
 	
 	/**
 	 * @var String view scripts extension
@@ -235,6 +235,71 @@ class Controller_Layout extends Controller_View_Base
 			$layout_name	= $this->_layout_name;
 			
 		return $this->layout_path . $layout_name . $this->getScriptsExtension();	
+	}
+	
+	/**
+	 * This function adds a script
+	 */
+	public function addScript( $script_url, $attribs = array(), $position = 'prepend' )
+	{
+		$request			= Request_HTTP::getInstance();
+		$baseUrl			= $request->getBaseUrl();
+		$prepared_script	= null;
+		
+		if ( false === strpos($script_url, '<script>', 0))
+		{
+			if ( false === strpos($script_url, 'http', 0) )
+				$script_url	= $baseUrl . $script_url;
+		
+		
+			$basic_attribs	= array('type' 	=> 'text/javascript' );
+			$attribs		= array_merge($basic_attribs, $attribs);
+		
+			$prepared_script	= array('src' => $script_url, 'attribs' => $attribs);
+		}
+		else
+		{
+			$prepared_script	= array('script' => $script_url);
+		}						
+		
+		// Add the script
+		if ( $position == 'prepend')
+		{
+			// Add to the top of array
+			array_unshift($this->_scripts, $prepared_script);
+		}
+		else
+		{
+			// Add to the bottom of array
+			array_push($this->_scripts, $prepared_script);
+		}
+		
+		return $this;
+	}
+	 
+	/**
+	 * This function gets all scripts
+	 */
+	public function getScripts ( $asArray = false )
+	{
+		if (! empty ( $this->_scripts ) )
+		{
+			// Return entire array
+			if ( $asArray )
+				return $this->_scripts;
+			
+			
+			// Return html formatted
+			$scripts	= null;
+			foreach ($this->_scripts as $script)
+			{
+				if (array_key_exists('script', $script))
+					$scripts	.= '//<![CDATA['. "\n" .$script['script'] . "\n//]]>";		// Already formatted script
+				else
+					$scripts	.= wrapHtml('', 'script', array_merge(array('src' => $script['src']),$script['attribs'])) . "\n";	
+			}
+			return $scripts;
+		}	
 	}
 	
 	/**

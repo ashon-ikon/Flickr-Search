@@ -25,6 +25,7 @@
  * --------------------------------------------------------------------
  */
 $this->addCSS('css/myflickr.css');
+$this->addScript('js/jquery-1.7.1.min.js');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
@@ -33,6 +34,7 @@ $this->addCSS('css/myflickr.css');
 		<meta http-equiv="Content-Language" content="en" />
 		<title><?php echo $this->getPageTitle() . ' - ' . APP_NAME; ?></title>
 		<?php echo $this->getCSS(); ?>
+		<?php echo $this->getScripts(); ?>
 </head>
 <body>
 	<div id="header">
@@ -73,7 +75,7 @@ $this->addCSS('css/myflickr.css');
 		&copy; <?php echo (date('Y') > 2012 ? '2012 - '. date('Y') : '2012'); ?>
 		Ashon Associates Inc.
 		<p>All code written <a href="http://ashon-associates.com/" title="Check out more about me" target="_blank">by Yinka Asonibare</a> from scratch<small><em> in 2days</em></small></p>
-			<p>Flickr is a registered trademark of Yahoo!&trade;</p>
+			<p><a href="http:://www.flickr.com" title="Flickr">Flickr</a> is a registered trademark of <a href="http:://www.yahoo.com" title="Yahoo!">Yahoo!&trade;</a></p>
 		</footer>
 	</div>
 	</body>

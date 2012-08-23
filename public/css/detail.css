@@ -6,5 +6,6 @@
 #info { margin-top: 2em; text-align: justify; padding:1em 3em;}
 #info .owner { font-weight: bold; font-style:italic;}
 #photo-description { font-size: 95%; line-height: 1.5em;}
+#date { font-size: 86%; color: #222; text-shadow: none;}
 .links { text-align: right; margin-top:0.7em;}
 .links a:link { padding: 0.4em 1em; color: #444; text-shadow: 0 1px 0 #fff; background: #ccf; border-radius: 3px; -moz-border-radius:3px; -webkit-border-radius:3px; }

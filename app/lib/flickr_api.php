@@ -221,7 +221,7 @@ class Flickr_API extends Base_Class
 					'method'	=> 'flickr.test.echo'		// This should be overriden !!
 			), $data );
 			
-			// Sanitize data
+			// Sanitize datafff
 			foreach ($data as $key => $value)
 				if ($value == null ) unset ($data[$key]);
 			ksort($data);
@@ -443,8 +443,6 @@ class Flickr_API extends Base_Class
 		// If we are to do agressive search
 		if ( $agressive_mode && $search_text != '')
 		{
-//			$words		= preg_split('/ +/', $search_text);
-//			$words		= array_filter($words);		
 			$search_text	= '"' . $search_text . '"';
 		}
 
@@ -462,7 +460,8 @@ class Flickr_API extends Base_Class
 			unset($data['agressive']);
 		}
 		
-		
+//		pr (json_encode($data));
+				
 		return $this->get( $data );
 	}
 	

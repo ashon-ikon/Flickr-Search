@@ -1,11 +1,15 @@
 @CHARSET "UTF-8";
 .photo-div { padding: 1em; -moz-border-radius: 10px; border-radius: 10px; -webkit-border-radius: 10px; background: #bfbfbf; margin-bottom: 1em;}
 .photo-info, .photo-pane { float: left; width: 400px;}
-.photo-info { text-align: right; padding-right: 2em; border-right: 1px solid #fff; height: 100%; margin-top: 3em; margin-left: 2em; }
+.photo-info { text-align: right; padding-right: 2em; border-right: 1px solid #fff; margin-top: 3em; margin-left: 2em; }
 .photo-info h3 { border-radius: 6px; -webkit-border-radius: 6px; background: #eee; padding: 1em;}
 .photo-info .hcover { padding: 0.4em 0.6em 0.5em; border-bottom: 1px dotted #fff; background: #ccc; display: block;}
-.photo-info p { color: #444; text-shadow: 0 1px 0 #eee;}
+.photo-info p { color: #686868; text-shadow: 0 1px 0 #eee; font-style: italic;}
+.photo-info a, .photo-info a:link { color: #33f; text-shadow: 0 1px 0 #eee;}
+.photo-info .image-desc { color: #222; text-shadow: 0 1px 0 #eee; font-size: 85%; text-align: justify;}
 .photo-pane { text-align: center; float: right;}
+.photo-pane .photo-dates { font-size: 80%; color: #222; text-shadow: 0 1px 0px #fff;}
+.photo-pane .photo-dates p { margin: 0.2em;}
 .photo-pane img { padding: 0.5em; background: #eee; border: 1px solid #fff; box-shadow: 0 0 6px #222; margin-top: 0.6em}
 .clr {  float:none; visibility: hidden; clear: both;}
 .photo-div:after { content: "."; visibility:hidden; clear: both; }

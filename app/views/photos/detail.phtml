@@ -38,6 +38,9 @@ $layout->addCSS('css/detail.css');
 	$image_desc 	= getArrayVar($this_image, 'description');
 	if (is_array($image_desc)) $image_desc	= getArrayVar($image_desc, '_content');
 	
+	// Dates
+	$image_dates 	= getArrayVar($this_image, 'dates');
+	
 	$image_sizes	= getArrayVar($response, 'sizes');
 	$image_sizes	= getArrayVar($image_sizes, 'size') != null ? getArrayVar($image_sizes, 'size') : $image_sizes;
 	$image_size		= array();
@@ -79,6 +82,11 @@ $layout->addCSS('css/detail.css');
 				<!-- Owner -->By
 				<span class="owner"><?php echo ($username = getArrayVar($owner, 'username')) != '' ? $username : 'Unknown owner';?></span>
 				<!-- Date taken -->
+				<span id="date">On
+				<date class="taken">
+				 <?php echo (date('jS F Y', strtotime(getArrayVar($image_dates, 'taken') )) ); ?>
+				</date>
+				</span>
 			</div>
 			<div id="photo-description">
 				<p><?php echo $image_desc != '' ? $image_desc : 'Unknown description';?></p>

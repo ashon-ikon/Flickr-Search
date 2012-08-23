@@ -26,6 +26,11 @@
  */
 class TestController extends Controller_Abstract
 {
+	public function init()
+	{
+		
+	}
+	
 	public function indexAction()
 	{
 		echo 'someplace';
@@ -33,10 +38,15 @@ class TestController extends Controller_Abstract
 
 	public function showAction()
 	{
-		$layout	= $this->_getLayout();
+		$this->_setPageTitle('Test World');
 		
-		$layout->title	= 'Test World';
-		$this->view->test_string	= 'Hello World';
+		$flickr_obj		= Flickr_API::getInstance();
+		
+		$data			= array(
+			''
+		);
+		
+		pr($flickr_obj->searchImages('norman'));		
 	}
 	
 	public function deprecatedAction()

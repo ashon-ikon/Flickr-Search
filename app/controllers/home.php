@@ -54,7 +54,7 @@ class HomeController extends Controller_Abstract
 		// Get viewing options
 		$per_page		= $request->getParam('perpage', 10);
 		$start_page		= $request->getParam('p', 1);
-		$extras			= $request->getParam('ex', 'owner_name,url_n,url_o');
+		$extras			= $request->getParam('ex', 'description,license,owner_name,date_upload, date_taken,url_n,url_o');
 		
 		$data			= array(
 			'page'		=> $start_page,

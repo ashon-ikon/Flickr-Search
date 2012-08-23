@@ -62,7 +62,8 @@ $layout->addCSS('css/home.css');
 			
 		$offset	=	((int)( ( $page -1 )/ $pages_list ) * $pages_list); 
 		
-	
+//		if ($per_page * $no_of_pages > $total)
+//			$pages_to_show = $no_of_pages - $offset;
 		
 		// Show Prev
 		if ($page > 1 )
@@ -91,7 +92,7 @@ $layout->addCSS('css/home.css');
 		}
 		
 		// Show Next
-		if ($page < $total )
+		if ($page < $total)
 			echo $this->fullUrl('&gt;&gt;', 
 								array(
 									'perpage' 	=> $per_page,
@@ -158,6 +159,16 @@ $layout->addCSS('css/home.css');
 
 				$img_link			= wrapHtml($thumbnail, 'a', $img_link_params);
 				
+				// Desciption
+				$image_desc 		= getArrayVar($this_photo, 'description');
+				if (is_array($image_desc)) $image_desc	= getArrayVar($image_desc, '_content');
+				
+				// Date Taken
+				$image_date_taken 		= getArrayVar($this_photo, 'datetaken');
+
+				// Date Uploaded
+				$image_date_uploaded 	= getArrayVar($this_photo, 'dateupload');
+				
 				// Use divs
 				?>
 				<div class="photo-div">
@@ -169,14 +180,33 @@ $layout->addCSS('css/home.css');
 						<a href="<?php echo $t_img_src;?>" title="Check out <?php echo $title; ?>">
 							<h3><?php echo $title; ?></h3>
 						</a>
+						<div class="photo-dates">
+							<p>
+							<date class="uploaded">
+								Uploaded: <?php echo (date('jS F Y', (int)$image_date_uploaded)); ?>
+							</date>
+							</p>
+							<p>
+							<date class="taken">
+								Date Taken: <?php echo (date('jS F Y', strtotime($image_date_taken))); ?>
+							</date>
+							</p>
+						</div>
 						<?php /*pr($this_photo);*/?>
 					</div><!-- End of Photo-pane -->
 					<div class="photo-info">
 						<h3><span class="hcover">Credits | : Flickr :</span></h3>
 						<p>
-						<span class="author"><?php echo $this_photo['ownername']; ?></span>
+						By <span class="author"><?php echo $this_photo['ownername']; ?></span>
 						</p>
-					</div><!-- End of Photo-into -->
+
+						<div class="image-desc"><?php
+						if (null != $image_desc)
+							echo $image_desc;
+						else
+							echo 'Unknown description';
+						?></div>
+					</div><!-- End of Photo-info -->
 					<div class="clr"></div>
 					<a href="#top" class="top">Top</a>
 				</div>
@@ -217,7 +247,7 @@ $layout->addCSS('css/home.css');
 		}
 		
 		// Show Next
-		if ($page < $total )
+		if ($page < $total /*&& ($per_page * $no_of_pages <= $total)*/) // TODO: FIX Pagenation
 			echo $this->fullUrl('&gt;&gt;', 
 								array(
 									'perpage' 	=> $per_page,

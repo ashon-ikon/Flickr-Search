@@ -33,5 +33,16 @@ class Controller_View extends Controller_View_Base
 	{
 		$this->_loadOptions($options);
 	}
+	
+	/**
+	 * This function gets the current active layout
+	 */
+	public function getLayout()
+	{
+		$front		= FlickrApp::getInstance()->getControllerFront();
+		$layout		= $front->getLayout();
+		
+		return $layout;
+	}
 
 }
