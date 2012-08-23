@@ -37,7 +37,8 @@ $layout->addCSS('css/home.css');
 	<div id="show-case">
 <?php	if( $stat = getArrayVar($response, 'stat') == 'ok' ): ?>
 	<?php if ($photos	= getArrayVar($response, 'photos') )
-			if( $images = getArrayVar($photos, 'photo') && !empty($images) ): ?>
+			if( $images = getArrayVar($photos, 'photo'))
+			 if ( !empty($images) ): ?>
 	<div id="photos">
 		<div><h3>Search for '<em><strong><?php echo urldecode($query); ?></strong></em>' ...</h3></div>
 	<div class="result-info">
@@ -107,7 +108,7 @@ $layout->addCSS('css/home.css');
 									), array('title' => 'View next page of result', 'class' => 'page-link'));
 		
 		if ($no_of_pages > $pages_to_show)
-			echo '...';
+			echo ' ...';
 	?>
 	&nbsp;&nbsp;&nbsp;
 	<span class="count"><?php echo $photos['perpage'];?></span> of <span class="total"><?php echo $photos['total'];?></span> results.</p></div>
@@ -240,7 +241,7 @@ $layout->addCSS('css/home.css');
 									), array('title' => 'View next page of result', 'class' => 'page-link'));
 		
 		if ($no_of_pages > $pages_to_show)
-			echo '...';
+			echo ' ...';
 			
 		// End of Result info
 	?>
@@ -251,7 +252,7 @@ $layout->addCSS('css/home.css');
 		<p>Image not found for search term <strong><em>'<?php echo $query; ?>'</em></strong></p>
 		<p>Please try some other terms. <strong><?php echo $this->fullUrl('New Search.', array('controller' =>'photos', 'action' => 'search'), array('class' => 'search-link'));?></strong></p>
 		</div>
-	<?php endif; /* Has Photos*/ ?>
+	<?php endif; /* Has Images */ ?>
 <?php else: /* Stat Ok?*/ ?>	
 		<?php if ($stat = getArrayVar($response,  'stat') == 'fail'):?>
 		<div id="error">

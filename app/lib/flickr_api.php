@@ -267,7 +267,7 @@ class Flickr_API extends Base_Class
 					throw new FlickrException ( 'I failed reaching Flickr Server.' );
 				
 			}// End fopen
-			
+
 			/**
 			 * Handle JSON type
 			 */
@@ -441,7 +441,7 @@ class Flickr_API extends Base_Class
 		$agressive_mode		= getArrayVar($search_params, 'agressive', true );
 		
 		// If we are to do agressive search
-		if ( $agressive_mode )
+		if ( $agressive_mode && $search_text != '')
 		{
 //			$words		= preg_split('/ +/', $search_text);
 //			$words		= array_filter($words);		
