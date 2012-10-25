@@ -92,7 +92,11 @@ class PhotosController extends Controller_Abstract
 			$start_page		= $request->getParam('p', 1);
 			$extras			= $request->getParam('ex', 'description,license,owner_name,date_upload, date_taken,url_n,url_o');
 			
-			$this->_setPageTitle( 'Search for ' . urldecode($query));
+			// Sanitize query for Olena's sakes
+			$query			= cleanSlashes($query);
+			$query			= sanitizeText($query);
+			
+			$this->_setPageTitle( 'Search for ' . $query);
 			
 			$data			= array(
 				'page'		=> $start_page,
