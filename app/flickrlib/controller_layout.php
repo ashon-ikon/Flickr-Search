@@ -152,7 +152,7 @@ class Controller_Layout extends Controller_View_Base
 		}
 		else 
 		{
-			if ( !$escape )
+			if ( $escape )
 			{
 				$title	= cleanSlashes($title);
 				$title	= sanitizeText($title);
