@@ -93,6 +93,7 @@ class PhotosController extends Controller_Abstract
 			$extras			= $request->getParam('ex', 'description,license,owner_name,date_upload, date_taken,url_n,url_o');
 			
 			// Sanitize query for Olena's sakes
+			$query			= urldecode($query);
 			$query			= cleanSlashes($query);
 			$query			= sanitizeText($query);
 			
