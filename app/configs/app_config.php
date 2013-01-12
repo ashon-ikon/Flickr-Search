@@ -65,6 +65,6 @@ defined ('APP_LIB')
 // Flickr Account details
 //=======================================================
 $flicker_user	=	array(
-	'user_id'	=> '85143678@N07',
-	'api_key'	=> 'f1e09c524cdda2a4613f8888b678b53b',
+	'user_id'	=> '',
+	'api_key'	=> '',
 );
